@@ -1,4 +1,4 @@
-![yamdb_workflow](https://github.com/<taube-a>/<yamdb_final>/actions/workflows/<yamdb_workflow.yml>/badge.svg)
+![Workflow status](https://github.com/taube-a/yamdb_final/actions/workflows/yamdb_workflow.yml/badge.svg)
 # Проект yamdb_final
 ## CI/CD для проекта API YAMDB
 
