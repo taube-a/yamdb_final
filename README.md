@@ -148,7 +148,7 @@ sudo curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-
 sudo chmod +x /usr/local/bin/docker-compose
 ```
 
-7. Скопировать файлы docker-compose.yaml и nginx/default.conf из проекта на сервер в home/<USER>/docker-compose.yaml и home/<USER>/nginx/default.conf соответственно.
+7. Скопировать файлы docker-compose.yaml и nginx/default.conf из проекта на сервер в home/USER/docker-compose.yaml и home/USER/nginx/default.conf соответственно.
 
     + Проверьте, чтобы в файле nginx/default.conf был указан корректный HOST **ВАШЕГО** сервера.
 
@@ -186,9 +186,12 @@ jobs:
         python -m pip install --upgrade pip 
         pip install flake8 pep8-naming flake8-broken-line flake8-return flake8-isort
         pip install -r project_name/requirements.txt 
-    - name: Test with flake8 and django tests
+    - name: Linting
       run: |
         python -m flake8
+    - name: Test with Pytest and django test
+      run: |
+        pytest
         cd project_name/
         python manage.py test
 
@@ -196,6 +199,7 @@ jobs:
     name: Push Docker image to Docker Hub
     runs-on: ubuntu-latest
     needs: tests
+    if: success() && github.ref == 'refs/heads/main'
     steps:
       - name: Check out the repo
         uses: actions/checkout@v2 
@@ -226,6 +230,7 @@ jobs:
           key: ${{ secrets.SSH_KEY }}
           passphrase: ${{ secrets.PASSPHRASE }}
           script: |
+            sudo docker pull DOCKER_USERNAME/image_name:tag
             sudo docker-compose stop
             sudo docker-compose rm web
             touch .env
