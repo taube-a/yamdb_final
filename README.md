@@ -1,6 +1,10 @@
 ![Workflow status](https://github.com/taube-a/yamdb_final/actions/workflows/yamdb_workflow.yml/badge.svg)
+
 # Проект yamdb_final
+
 ## CI/CD для проекта API YAMDB
+
+Проект развёрнут по ip-адресу [158.160.29.172](http://158.160.29.172)
 
 ## Описание
 
